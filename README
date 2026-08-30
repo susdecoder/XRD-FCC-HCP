@@ -1,6 +1,6 @@
 # XRD-FCC-HCP
 
-Reproducibility materials for FCC/HCP phase classification from a minimal, physics-informed XRD feature representation.
+Reproducibility code and datasets for FCC/HCP phase classification using a minimal, physics-informed XRD feature representation.
 
 ## Overview
 
@@ -8,51 +8,53 @@ This repository contains the computational materials associated with the AI4Mat 
 
 The study investigates whether a two-feature representation,
 
-\[
-\mathbf{x} = [(d_1/d_2)^2,\ I_2/I_1]^T,
-\]
+**x = [(d₁/d₂)², I₂/I₁]ᵀ**
 
-derived from two selected dominant XRD peaks, can distinguish FCC and HCP phases when classifiers are trained only on synthetic diffraction patterns and evaluated on chemically more complex and experimentally measured data.
+derived from two selected dominant XRD peaks can distinguish FCC and HCP phases when classifiers are trained on synthetic diffraction data and evaluated on chemically more complex synthetic structures and experimentally measured HEA XRD patterns.
 
-## Datasets
+## Data
 
-The study uses three evaluation/training datasets:
+The study uses three datasets:
 
-- **Synthetic training data:** FCC/HCP patterns generated from Materials Project structures.
-- **Chemically diverse synthetic stress test:** Materials Project structures containing 4--6 elements.
-- **Experimental HEA test set:** independently measured experimental XRD patterns obtained from published sources.
+- **Synthetic training set:** 120 FCC/HCP patterns generated from Materials Project structures.
+- **Chemically diverse synthetic stress test:** 54 Materials Project structures containing 4–6 elements.
+- **Experimental HEA test set:** 17 independently measured experimental XRD patterns obtained from published sources.
 
-The experimental set is used only for independent evaluation and is not used to train or modify the classifiers.
+The experimental patterns are used only for independent evaluation and are not used to train or modify the classifiers.
 
 ## Models
 
-The study evaluates Linear SVM, RBF-kernel SVM, and cosine-kernel SVM classifiers using the two-feature representation.
+The study evaluates:
+
+- Linear SVM
+- RBF-kernel SVM
+- Cosine-kernel SVM
 
 A separate quantum-kernel SVM implementation using a two-qubit PennyLane simulation is also included. The quantum kernel is evaluated through classical simulation; no quantum hardware execution or quantum computational advantage is claimed.
 
 ## Computational Notebooks
 
-The notebooks included in this repository represent the initial/base implementations developed during the study. Subsequent analyses involved changes to the datasets and modifications to the feature-processing implementation, including removal of an earlier \(d_2^2/d_1^2\) constraint.
+The notebooks in this repository represent the initial/base implementations developed during the study.
 
-The notebooks are therefore provided as computational documentation of the development and analysis workflow rather than as three independent final versions of the paper.
+The final analysis involved subsequent modifications to the implementation and datasets, including removal of an earlier constraint on the spacing-ratio feature and changes to the datasets used for the reported experiments.
 
-## Feature-space Selection Diagnostic
+The notebooks are therefore provided as documentation of the computational development and analysis workflow. They should not be interpreted as three independent final implementations of the paper.
 
-An earlier analysis applied the restriction
+## Feature-Space Selection Diagnostic
 
-\[
-(d_1/d_2)^2 \leq 2.0.
-\]
+An earlier analysis applied the restriction:
 
-Subsequent auditing showed that this restriction removed 35 of the 120 synthetic samples, including 29 of 60 FCC samples (48.3%) and 6 of 60 HCP samples (10.0%).
+**(d₁/d₂)² ≤ 2.0**
 
-The complete-data analysis was subsequently used for the principal results, providing a more conservative assessment of the sensitivity of classification performance to feature-space selection.
+This restricted analysis produced 100% accuracy on the 17 experimental patterns. Subsequent auditing showed that the restriction removed 35 of the 120 synthetic samples, including 29 of 60 FCC samples (48.3%) and 6 of 60 HCP samples (10.0%).
+
+The complete-data analysis was subsequently used for the principal results, providing a more conservative assessment of sensitivity to feature-space selection.
 
 ## Reproducibility
 
 The computational workflow was developed and evaluated using Python and Google Colab.
 
-The notebooks and associated datasets are provided to document the computational procedures, feature construction, classification analyses, and diagnostic experiments reported in the study.
+The notebooks and associated datasets are provided to document the feature construction, classification analyses, and diagnostic experiments reported in the study.
 
 ## Scope
 
