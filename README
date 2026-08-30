@@ -1,0 +1,59 @@
+# XRD-FCC-HCP
+
+Reproducibility materials for FCC/HCP phase classification from a minimal, physics-informed XRD feature representation.
+
+## Overview
+
+This repository contains the computational materials associated with the AI4Mat 2026 workshop submission on automated XRD phase characterization.
+
+The study investigates whether a two-feature representation,
+
+\[
+\mathbf{x} = [(d_1/d_2)^2,\ I_2/I_1]^T,
+\]
+
+derived from two selected dominant XRD peaks, can distinguish FCC and HCP phases when classifiers are trained only on synthetic diffraction patterns and evaluated on chemically more complex and experimentally measured data.
+
+## Datasets
+
+The study uses three evaluation/training datasets:
+
+- **Synthetic training data:** FCC/HCP patterns generated from Materials Project structures.
+- **Chemically diverse synthetic stress test:** Materials Project structures containing 4--6 elements.
+- **Experimental HEA test set:** independently measured experimental XRD patterns obtained from published sources.
+
+The experimental set is used only for independent evaluation and is not used to train or modify the classifiers.
+
+## Models
+
+The study evaluates Linear SVM, RBF-kernel SVM, and cosine-kernel SVM classifiers using the two-feature representation.
+
+A separate quantum-kernel SVM implementation using a two-qubit PennyLane simulation is also included. The quantum kernel is evaluated through classical simulation; no quantum hardware execution or quantum computational advantage is claimed.
+
+## Computational Notebooks
+
+The notebooks included in this repository represent the initial/base implementations developed during the study. Subsequent analyses involved changes to the datasets and modifications to the feature-processing implementation, including removal of an earlier \(d_2^2/d_1^2\) constraint.
+
+The notebooks are therefore provided as computational documentation of the development and analysis workflow rather than as three independent final versions of the paper.
+
+## Feature-space Selection Diagnostic
+
+An earlier analysis applied the restriction
+
+\[
+(d_1/d_2)^2 \leq 2.0.
+\]
+
+Subsequent auditing showed that this restriction removed 35 of the 120 synthetic samples, including 29 of 60 FCC samples (48.3%) and 6 of 60 HCP samples (10.0%).
+
+The complete-data analysis was subsequently used for the principal results, providing a more conservative assessment of the sensitivity of classification performance to feature-space selection.
+
+## Reproducibility
+
+The computational workflow was developed and evaluated using Python and Google Colab.
+
+The notebooks and associated datasets are provided to document the computational procedures, feature construction, classification analyses, and diagnostic experiments reported in the study.
+
+## Scope
+
+The reported results should be interpreted within the limitations described in the accompanying paper, particularly the limited experimental dataset and the distribution difference between synthetic training data and experimental HEA measurements.
